@@ -16,11 +16,14 @@ import logo from "../../assets/logo.png";
 import SignInFooter from "../../components/SignInFooter";
 import useStyles from "./styles";
 import { escolaridade, unidades, cursos, turnos } from "./inputs";
+import { formatCPF, formatPhone } from "./format";
 
 export default function SignUp() {
   const classes = useStyles();
   let history = useHistory();
   const [showPassword, setShowPassword] = React.useState<Boolean>(false);
+  const [phone, setPhone] = React.useState("");
+  const [CPF, setCPF] = React.useState("");
   const [userClass, setUserClass] = React.useState("");
   const [userEducation, setUserEducation] = React.useState("");
   const [userPlace, setUserPlace] = React.useState("");
@@ -57,6 +60,14 @@ export default function SignUp() {
   ) => {
     event.preventDefault();
   };
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(event.target.value));
+  }
+
+  const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCPF(formatCPF(event.target.value));
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -96,8 +107,10 @@ export default function SignUp() {
             label="CPF"
             margin="none"
             name="cpf"
+            onChange={handleCPFChange}
             required
             variant="outlined"
+            value={CPF}
           />
           <TextField
             className={classes.inputs}
@@ -108,8 +121,10 @@ export default function SignUp() {
             label="Celular"
             margin="none"
             name="phone"
+            onChange={handlePhoneChange}
             required
             variant="outlined"
+            value={phone}
           />
           <TextField
             className={classes.inputs}
